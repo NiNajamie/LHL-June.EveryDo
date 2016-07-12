@@ -8,13 +8,13 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "ToDo.h"
 
-@interface MasterViewController ()
-
-
-
+@interface MasterViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property NSMutableArray *objects;
+@property ToDo *object;
+
 @end
 
 @implementation MasterViewController
@@ -26,10 +26,18 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+
+    
+    self.objects = [[NSMutableArray alloc] init];
+    self.object = [[ToDo alloc] initWithTitle:@"Work out" todoDescription:@"work out at gym" priorityNumber:3 isCompleted:NO];
+    [self.objects addObject:self.object];
+    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Buy milk" todoDescription:@"shop at super market" priorityNumber:2 isCompleted:NO]];
+    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Laundry" todoDescription:@"do laundry" priorityNumber:1 isCompleted:NO]];
+    
 }
 
+
 - (void)viewWillAppear:(BOOL)animated {
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,11 +57,14 @@
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
+        
+        self.object = self.objects[indexPath.row];
         DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
-        [controller setDetailItem:object];
+        
+        [controller setTodo:self.object];
     }
 }
 
@@ -68,10 +79,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    self.object = self.objects[indexPath.row];
+    cell.titleLabel.text = self.object.title;
+    cell.descriptionLabel.text = self.object.todoDescription;
+    cell.priorityLabel.text = [NSString stringWithFormat:@"%i",self.object.priorityNumber];
+    
+    
     return cell;
 }
 

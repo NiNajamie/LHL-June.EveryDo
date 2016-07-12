@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ToDo.h"
 
 @interface TableViewCell : UITableViewCell
 
-//@property (nonatomic) NSString *title;
-//@property (nonatomic) NSString *descriptionText;
-
-@property (nonatomic) int priorityNumber;
-@property (nonatomic) BOOL isCompletedIndicator;
+//@property (nonatomic) ToDo *todo;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priorityLabel;
 
 
 @end
