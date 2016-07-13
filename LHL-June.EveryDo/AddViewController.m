@@ -11,6 +11,7 @@
 
 @interface AddViewController ()
 
+
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (weak, nonatomic) IBOutlet UITextField *priorityTextField;
@@ -25,18 +26,15 @@
     self.titleTextField.delegate = self;
     self.descriptionTextField.delegate = self;
     self.priorityTextField.delegate = self;
-    
-    NSString *itemToPassBack = @"Pass this value back to MasterVC";
-    [self.delegate addItemViewController:self didFinishEnteringItem:itemToPassBack];
- 
 }
 
+
 - (IBAction)savePressed:(UIButton *)sender {
-    
-    if (!self.todoList) {
-        self.todoList = [NSMutableArray new];
-        
-    }
+//    
+//    if (!self.todoList) {
+//        self.todoList = [NSMutableArray new];
+//        
+//    }
     self.todo = [ToDo new];
     
     self.todo.title = self.titleTextField.text;
@@ -44,9 +42,14 @@
     NSString *intStr = self.priorityTextField.text;
     self.todo.priorityNumber = [intStr intValue];
     
-    [self.todoList addObject:self.todo];
-    NSLog(@"%@", self.todoList);
+//    [self.todoList addObject:self.todo];
+//    NSLog(@"%@", self.todoList);
     
+    
+//    NSString *itemToPassBack = @"Pass this value back to MasterVC\n";
+    [self.delegate addViewController:self didFinishEnteringItem:self.todo];
+    
+    // go back to MainViewController
     [self.navigationController popViewControllerAnimated:YES];
 }
 

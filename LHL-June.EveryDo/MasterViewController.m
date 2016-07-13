@@ -15,7 +15,8 @@
 @property NSMutableArray *objects;
 @property ToDo *object;
 
-@property NSString *item;
+// info gotten from addVC
+@property ToDo *todoItem;
 
 @end
 
@@ -24,18 +25,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    self.objects = [[NSMutableArray alloc] init];
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     
+    ToDo *object1 = [[ToDo alloc] initWithTitle:@"Work out" todoDescription:@"work out at gym" priorityNumber:3 isCompleted:NO];
+    ToDo *object2 = [[ToDo alloc] initWithTitle:@"Buy milk" todoDescription:@"shop at super market" priorityNumber:2 isCompleted:NO];
+    ToDo *object3 = [[ToDo alloc] initWithTitle:@"Laundry" todoDescription:@"do laundry" priorityNumber:1 isCompleted:NO];
     
+    [self.objects addObject:object1];
+    [self.objects addObject:object2];
+    [self.objects addObject:object3];
     
-    self.object = [[ToDo alloc] initWithTitle:@"Work out" todoDescription:@"work out at gym" priorityNumber:3 isCompleted:NO];
-    [self.objects addObject:self.object];
-    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Buy milk" todoDescription:@"shop at super market" priorityNumber:2 isCompleted:NO]];
-    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Laundry" todoDescription:@"do laundry" priorityNumber:1 isCompleted:NO]];
+//    self.object = [[ToDo alloc] initWithTitle:@"Work out" todoDescription:@"work out at gym" priorityNumber:3 isCompleted:NO];
+//    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Buy milk" todoDescription:@"shop at super market" priorityNumber:2 isCompleted:NO]];
+//    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Laundry" todoDescription:@"do laundry" priorityNumber:1 isCompleted:NO]];
     
+
     
     // Fresh data as much as pulling view
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -52,13 +62,21 @@
 -(void)refreshTable:(NSNotification*) notification {
 }
 
-- (void)addItemViewController:(AddViewController *)controller didFinishEnteringItem:(NSString *)item {
-    NSLog(@"This was returned from AddViewController %@",item);
-//    self.item = item;
+- (void)addViewController:(AddViewController *)controller didFinishEnteringItem:(ToDo *)todoItem {
+//    NSLog(@"This was returned from AddViewController: %@",item);
+    NSLog(@"Here is info from AddVC--%@", todoItem);
+    
+    // make item for public use
+//    self.object = todoItem;
+    [self.objects addObject:todoItem];
+    NSLog(@"title-- %@",self.object.title);
+    [self.tableView reloadData];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    
+    //[self.tableView reloadData]; // or in addViewController:didFinishEnteringItem:
 }
 
 - (void)didReceiveMemoryWarning {
@@ -112,9 +130,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     self.object = self.objects[indexPath.row];
+    
+//  cell.textLabel.text = self.object.title;
     
     cell.titleLabel.text = self.object.title;
     cell.descriptionLabel.text = self.object.todoDescription;

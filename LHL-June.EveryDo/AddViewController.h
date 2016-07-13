@@ -12,7 +12,7 @@
 
 @protocol AddViewControllerDelegate <NSObject>
 
-- (void)addItemViewController:(AddViewController *)controller didFinishEnteringItem:(NSString *)item;
+- (void)addViewController:(AddViewController *)controller didFinishEnteringItem:(ToDo*)todoItem;
 
 
 @end
@@ -22,6 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @property (nonatomic) ToDo *todo;
-@property (nonatomic) NSMutableArray *todoList;
+//@property (nonatomic) NSMutableArray *todoList;
 @property (nonatomic, weak) id <AddViewControllerDelegate> delegate;
 @end
