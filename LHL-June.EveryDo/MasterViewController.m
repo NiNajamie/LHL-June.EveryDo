@@ -31,10 +31,10 @@
     
     
     
-//    self.object = [[ToDo alloc] initWithTitle:@"Work out" todoDescription:@"work out at gym" priorityNumber:3 isCompleted:NO];
-//    [self.objects addObject:self.object];
-//    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Buy milk" todoDescription:@"shop at super market" priorityNumber:2 isCompleted:NO]];
-//    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Laundry" todoDescription:@"do laundry" priorityNumber:1 isCompleted:NO]];
+    self.object = [[ToDo alloc] initWithTitle:@"Work out" todoDescription:@"work out at gym" priorityNumber:3 isCompleted:NO];
+    [self.objects addObject:self.object];
+    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Buy milk" todoDescription:@"shop at super market" priorityNumber:2 isCompleted:NO]];
+    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Laundry" todoDescription:@"do laundry" priorityNumber:1 isCompleted:NO]];
     
     
     // Fresh data as much as pulling view
@@ -44,7 +44,6 @@
                                                object:nil];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     
 //    [self.tableView reloadData];   // Fresh data once
     
@@ -114,12 +113,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
+    
     self.object = self.objects[indexPath.row];
     
     cell.titleLabel.text = self.object.title;
     cell.descriptionLabel.text = self.object.todoDescription;
     cell.priorityLabel.text = [NSString stringWithFormat:@"%i", self.object.priorityNumber];
+    
 //    cell.completeLabel.text = self.object.isCompleted;
     
     return cell;
