@@ -8,11 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "ToDo.h"
+@class AddViewController;
+
+@protocol AddViewControllerDelegate <NSObject>
+
+- (void)addItemViewController:(AddViewController *)controller didFinishEnteringItem:(NSString *)item;
+
+
+@end
 
 @interface AddViewController : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
+
 @property (nonatomic) ToDo *todo;
 @property (nonatomic) NSMutableArray *todoList;
-
+@property (nonatomic, weak) id <AddViewControllerDelegate> delegate;
 @end

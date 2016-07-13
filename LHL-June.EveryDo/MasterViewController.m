@@ -15,6 +15,8 @@
 @property NSMutableArray *objects;
 @property ToDo *object;
 
+@property NSString *item;
+
 @end
 
 @implementation MasterViewController
@@ -26,14 +28,34 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    
+    
+//    self.object = [[ToDo alloc] initWithTitle:@"Work out" todoDescription:@"work out at gym" priorityNumber:3 isCompleted:NO];
+//    [self.objects addObject:self.object];
+//    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Buy milk" todoDescription:@"shop at super market" priorityNumber:2 isCompleted:NO]];
+//    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Laundry" todoDescription:@"do laundry" priorityNumber:1 isCompleted:NO]];
+    
+    
+    // Fresh data as much as pulling view
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshTable:)
+                                                 name:@"refreshTable"
+                                               object:nil];
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
+//    [self.tableView reloadData];   // Fresh data once
+    
+}
 
-    
-    self.objects = [[NSMutableArray alloc] init];
-    self.object = [[ToDo alloc] initWithTitle:@"Work out" todoDescription:@"work out at gym" priorityNumber:3 isCompleted:NO];
-    [self.objects addObject:self.object];
-    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Buy milk" todoDescription:@"shop at super market" priorityNumber:2 isCompleted:NO]];
-    [self.objects addObject:[[ToDo alloc] initWithTitle:@"Laundry" todoDescription:@"do laundry" priorityNumber:1 isCompleted:NO]];
-    
+-(void)refreshTable:(NSNotification*) notification {
+}
+
+- (void)addItemViewController:(AddViewController *)controller didFinishEnteringItem:(NSString *)item {
+    NSLog(@"This was returned from AddViewController %@",item);
+//    self.item = item;
 }
 
 
@@ -46,13 +68,20 @@
 }
 
 - (void)insertNewObject:(id)sender {
+    
+    [self performSegueWithIdentifier:@"SegueToAdd" sender:self];
+
 //    if (!self.objects) {
 //        self.objects = [[NSMutableArray alloc] init];
 //    }
 //    [self.objects insertObject:[NSDate date] atIndex:0];
 //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 //    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self performSegueWithIdentifier:@"SegueToAdd" sender:self];
+    
+//    AddViewController *avc = [AddViewController new];
+//    avc = [self.storyboard instantiateViewControllerWithIdentifier:@"add"];
+//    avc.delegate = self;
+//    [self.navigationController pushViewController:avc animated:YES];
 }
 
 #pragma mark - Segues
@@ -66,6 +95,10 @@
         DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
         
         [controller setTodo:self.object];
+        
+    } else if ([[segue identifier] isEqualToString:@"SegueToAdd"]) {
+        AddViewController *avc = (AddViewController *)[segue destinationViewController];
+        avc.delegate = self;
     }
 }
 
@@ -83,9 +116,10 @@
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
     self.object = self.objects[indexPath.row];
+    
     cell.titleLabel.text = self.object.title;
     cell.descriptionLabel.text = self.object.todoDescription;
-    cell.priorityLabel.text = [NSString stringWithFormat:@"%i",self.object.priorityNumber];
+    cell.priorityLabel.text = [NSString stringWithFormat:@"%i", self.object.priorityNumber];
 //    cell.completeLabel.text = self.object.isCompleted;
     
     return cell;
@@ -97,6 +131,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.objects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

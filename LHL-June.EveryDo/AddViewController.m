@@ -7,15 +7,13 @@
 //
 
 #import "AddViewController.h"
+@class  MasterViewController;
 
 @interface AddViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (weak, nonatomic) IBOutlet UITextField *priorityTextField;
-
-
-
 
 @end
 
@@ -24,13 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    
     self.titleTextField.delegate = self;
     self.descriptionTextField.delegate = self;
     self.priorityTextField.delegate = self;
     
-    
-    
+    NSString *itemToPassBack = @"Pass this value back to MasterVC";
+    [self.delegate addItemViewController:self didFinishEnteringItem:itemToPassBack];
+ 
 }
 
 - (IBAction)savePressed:(UIButton *)sender {
@@ -43,11 +41,13 @@
     
     self.todo.title = self.titleTextField.text;
     self.todo.todoDescription = self.descriptionTextField.text;
-//    todo.priorityNumber = self.priorityTextField.text;
+    NSString *intStr = self.priorityTextField.text;
+    self.todo.priorityNumber = [intStr intValue];
     
     [self.todoList addObject:self.todo];
     NSLog(@"%@", self.todoList);
     
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //#pragma mark- TextField ShouldReturn
@@ -61,21 +61,22 @@
 //    return YES;
 //}
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//
+//    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+//        NSIndexPath *indexPath = [self.view indexPathForSelectedRow:indexPath.row];
+//        
+//        self.todo = self.todoList[indexPath.row];
+//        MasterViewController *mvc = (MasterViewController*)segue.destinationViewController;
+//        mvc.object = self.todo;
+//    }
+//}
 
 @end
