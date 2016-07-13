@@ -16,6 +16,7 @@
 		961A0E971D356A2200957D2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 961A0E951D356A2200957D2D /* LaunchScreen.storyboard */; };
 		961A0EA01D356BA300957D2D /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A0E9F1D356BA300957D2D /* TableViewCell.m */; };
 		961A0EA31D35735800957D2D /* ToDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A0EA21D35735800957D2D /* ToDo.m */; };
+		961A0EA61D35BA8D00957D2D /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961A0EA51D35BA8D00957D2D /* AddViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		961A0E9F1D356BA300957D2D /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		961A0EA11D35735800957D2D /* ToDo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToDo.h; sourceTree = "<group>"; };
 		961A0EA21D35735800957D2D /* ToDo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToDo.m; sourceTree = "<group>"; };
+		961A0EA41D35BA8D00957D2D /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddViewController.h; sourceTree = "<group>"; };
+		961A0EA51D35BA8D00957D2D /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,10 +72,12 @@
 			children = (
 				961A0E871D356A2200957D2D /* AppDelegate.h */,
 				961A0E881D356A2200957D2D /* AppDelegate.m */,
-				961A0E8A1D356A2200957D2D /* MasterViewController.h */,
-				961A0E8B1D356A2200957D2D /* MasterViewController.m */,
+				961A0EA41D35BA8D00957D2D /* AddViewController.h */,
+				961A0EA51D35BA8D00957D2D /* AddViewController.m */,
 				961A0E8D1D356A2200957D2D /* DetailViewController.h */,
 				961A0E8E1D356A2200957D2D /* DetailViewController.m */,
+				961A0E8A1D356A2200957D2D /* MasterViewController.h */,
+				961A0E8B1D356A2200957D2D /* MasterViewController.m */,
 				961A0E9E1D356BA300957D2D /* TableViewCell.h */,
 				961A0E9F1D356BA300957D2D /* TableViewCell.m */,
 				961A0EA11D35735800957D2D /* ToDo.h */,
@@ -168,6 +173,7 @@
 				961A0E891D356A2200957D2D /* AppDelegate.m in Sources */,
 				961A0E8C1D356A2200957D2D /* MasterViewController.m in Sources */,
 				961A0E861D356A2200957D2D /* main.m in Sources */,
+				961A0EA61D35BA8D00957D2D /* AddViewController.m in Sources */,
 				961A0EA01D356BA300957D2D /* TableViewCell.m in Sources */,
 				961A0E8F1D356A2200957D2D /* DetailViewController.m in Sources */,
 				961A0EA31D35735800957D2D /* ToDo.m in Sources */,

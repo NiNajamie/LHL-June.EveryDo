@@ -14,7 +14,7 @@
 @property (nonatomic) NSString *todoDescription;
 
 
-// Number low(1-3)high
+// Number lowest(1-3)highest
 @property (nonatomic) int priorityNumber;
 @property BOOL isCompleted;
 

@@ -46,12 +46,13 @@
 }
 
 - (void)insertNewObject:(id)sender {
-    if (!self.objects) {
-        self.objects = [[NSMutableArray alloc] init];
-    }
-    [self.objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    if (!self.objects) {
+//        self.objects = [[NSMutableArray alloc] init];
+//    }
+//    [self.objects insertObject:[NSDate date] atIndex:0];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self performSegueWithIdentifier:@"SegueToAdd" sender:self];
 }
 
 #pragma mark - Segues
@@ -85,7 +86,7 @@
     cell.titleLabel.text = self.object.title;
     cell.descriptionLabel.text = self.object.todoDescription;
     cell.priorityLabel.text = [NSString stringWithFormat:@"%i",self.object.priorityNumber];
-    
+//    cell.completeLabel.text = self.object.isCompleted;
     
     return cell;
 }
